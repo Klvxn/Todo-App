@@ -19,10 +19,10 @@
                     <input type="checkbox" value="clicked" name="checked{{todos.pk}}" class="mr-2"/>
                     <a href="{{ todos.get_absolute_url }}" style="color: black;"> {{todos}} </a>
                 {% endif %}
-                <span style="color:rgba(126, 105, 105, 0.774); font-size: 14px;"> - {{todos.date_created|timesince}} ago </span> 
+                <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span> 
                 <div style="margin-left:25px">
                     {% if todos.note != '' %}
-                        <div style="color:rgb(126, 105, 105); font-size:15px"> Note: {{ todos.note|truncatewords:10 }} </div>
+                        <div  style="color:rgb(207, 160, 115); font-size:17px"> Note: {{ todos.note|truncatewords:10 }} </div>
                     
                     {% endif %} 
                         <div>

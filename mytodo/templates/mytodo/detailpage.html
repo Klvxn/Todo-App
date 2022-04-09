@@ -22,11 +22,11 @@
     <span style="color:rgba(126, 105, 105, 0.774); font-size: 25px;"> - {{todo.date_created|timesince}} ago </span> 
     <div>
         {% if todo.note != '' %}
-            <div style="color:rgb(126, 105, 105);"> Note: {{ todo.note}} </div>
+            <div  style="color:rgb(207, 160, 115)"> Note: {{ todo.note}} </div>
         {% endif %} 
-        <div style="margin-top: 7%;">
+        <div style="margin-top: 5%;">
             <a style="color: rgba(252, 125, 7, 0.753);" href="{% url 'mytodo:edit-todo' todo.pk %}"> Edit</a> 
-            <a style="color:red;  margin-left: 8px;" href="{% url 'mytodo:delete-todo' todo.pk ">Delete </a>
+            <a style="color:red;  margin-left: 8px;" href="{% url 'mytodo:delete-todo' todo.pk %}">Delete </a>
         </div>  
     </div>
 {% endblock %}
