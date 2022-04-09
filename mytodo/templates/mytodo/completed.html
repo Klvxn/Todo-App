@@ -9,16 +9,16 @@
 
 <form action="" method="post">
     {% csrf_token %} 
-    <input class='btn btn-success' type="submit" value="Refresh" name="refresh"/>
+    <input class='btn btn-success' style="font-size: 25px;" type="submit" value="Refresh" name="refresh"/>
     <hr class="mb-4"/>
     {% for todos in todos %}
         <div class=" container border-bottom mb-4">
             <input type="checkbox" value="clicked" class="mr-2" checked/>
             <a href="{{ todos.get_absolute_url }}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
-            <span style="color:rgba(126, 105, 105, 0.774); font-size: 14px;"> - {{todos.date_created|timesince}} ago </span>
+            <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span>
             <div style="margin-left:27px"> 
                 {% if todos.note != '' %}
-                    <div style="color:rgb(126, 105, 105); font-size:15px"> Note: {{ todos.note|truncatewords:12 }} </div>
+                    <div style="color:rgb(207, 160, 115); font-size:17px"> Note: {{ todos.note|truncatewords:12 }} </div>
                 {% endif %}
                 <div>
                     <a class="fa fa-pencil-square-o" style="color: rgba(252, 125, 7, 0.753);" href="{% url 'mytodo:edit-todo' todos.pk %}"> </a> 

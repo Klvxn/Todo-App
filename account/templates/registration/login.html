@@ -11,7 +11,7 @@
     <form class= "form-group" method="post" action="">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn bg-success text-white" type="submit" value="Login"/>
+        <input class="btn bg-success text-white" style="font-size: 25px;" type="submit" value="Login"/>
     </form>
 
     <p> Don't have an account? <a style="color:limegreen" href="{% url 'account:register' %}">Register</a> </p>

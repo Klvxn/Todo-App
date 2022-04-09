@@ -8,7 +8,8 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %} 
-        <input class='btn btn-success' type="submit" value="Refresh" name="refresh"/>  <p style="float:right;">  <b> You have {{todo_count}} uncompleted to-dos </b> </p>
+        <input class='btn btn-success' style="font-size: 25px;" type="submit" value="Refresh" name="refresh"/> 
+        <p style="float:right;">  <b> You have {{todo_count}} uncompleted to-dos </b> </p>
         <hr class="mb-4">
         {% for todos in todo %}
             <div class=" border-bottom mb-4 container-fluid" style="background-color:white;" >
