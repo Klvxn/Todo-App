@@ -1,0 +1,22 @@
+{% extends 'mytodo\base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header%}
+<h3> Delete to-do</h3>
+{% endblock %}
+
+{% block content %}
+<p style="font-size: large;"> Do you want to delete this to-do? </p>
+<form style="margin: 25px;" action="" method="post">
+    {% csrf_token %}
+        {% if todo.completed == False %}
+            {{todo}} <a style="color: tomato;"> [undone] </a>
+        {% else %}
+            <s> {{todo}}</s> <a class="material-icons" style="color: limegreen;"> task_alt </a>
+        {% endif %} </p>  
+    <input class="btn btn-danger" type="submit" value="Delete"/> 
+    <a class="btn btn-outline-secondary"  href="{% url 'mytodo:homepage' %}">Cancel</a>
+</form>
+
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% extends 'mytodo/base.html' %}    
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h3> Log in </h3>
+{% endblock %}
+
+
+{% block content %}
+<div style="font-size: x-large;">
+    <form class= "form-group" method="post" action="">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input class="btn bg-success text-white" type="submit" value="Login"/>
+    </form>
+
+    <p> Don't have an account? <a style="color:limegreen" href="{% url 'account:register' %}">Register</a> </p>
+</div>
+{% endblock content %}

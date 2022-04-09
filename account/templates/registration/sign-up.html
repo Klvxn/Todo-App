@@ -1,0 +1,16 @@
+{% extends 'mytodo/base.html' %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h3> Register </h3>
+{% endblock page_header %}
+
+{% block content %}
+<div style="font-size: x-large;">
+    <form method="post" action="">
+        {% csrf_token %} 
+        {% bootstrap_form form %}
+        <input class="btn btn-success text-white" type="submit" value="Sign up" />
+    </form>
+</div>
+{% endblock content %}
