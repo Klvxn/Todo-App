@@ -15,6 +15,6 @@ class Todo(models.Model):
         return f'{self.todo}'
 
     def get_absolute_url(self):
-        return reverse("mytodo:detailpage", kwargs={'pk':self.pk})
+        return reverse("mytodo:homepage")
 
     

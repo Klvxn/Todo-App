@@ -20,19 +20,15 @@ def detailpage(request, pk):
 @login_required
 def homepage(request):
     todo = Todo.objects.filter(user=request.user).order_by('-date_created')
-    for todos in todo:
-        if request.POST.get('refresh'):
-            if request.POST.get('checked'+str(todos.pk)) == 'clicked':
+    if request.POST.get('refresh'):
+        for todos in todo:
+            if request.POST.get('checked' + str(todos.pk)) == 'clicked':
                 todos.completed = True
-                todos.save()
             else:
                 todos.completed = False
-                # todos.save()
-    paginator = Paginator(todo, 7)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+            todos.save()
     todo_count = Todo.objects.filter(user=request.user, completed = False).count()
-    context = {'todo':page_obj, 'todo_count':todo_count}
+    context = {'todo':todo, 'todo_count':todo_count}
     return render(request, 'mytodo/homepage.html', context)
 
 
@@ -95,25 +91,20 @@ def completed_todos(request):
             else:
                 todos.completed = False
             todos.save()
-    paginator = Paginator(todo, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {'todos':page_obj}
+    context = {'todos':todo}
     return render(request, 'mytodo/completed.html', context)
 
 
 @login_required
 def uncompleted_todos(request):
     todo = Todo.objects.filter(user=request.user, completed=False).order_by('-date_created')
-    for todos in todo:
-        if request.POST.get('refresh'):
+    if request.POST.get('refresh'):
+        for todos in todo:
             if request.POST.get('checked'+str(todos.pk)) == 'clicked':
                 todos.completed = True
             else:
                 todos.completed = False
             todos.save()
-    paginator = Paginator(todo, 5)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {'todos':page_obj}
+    todo = Todo.objects.filter(user=request.user, completed=False).order_by('-date_created')
+    context = {'todos':todo}
     return render(request, 'mytodo/uncompleted.html', context)

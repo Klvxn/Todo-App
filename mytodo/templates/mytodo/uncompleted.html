@@ -4,16 +4,15 @@
 <h3> Uncompleted To-dos </h3> 
 {% endblock %}
 
-
 {% block content %}
 <form action="" method="post">
     {% csrf_token %} 
-    <input class='btn btn-success' style="font-size: 25px;" type="submit" value="Refresh" name="refresh"/>
+    <input class='btn btn-success' style="font-size: 20px;" type="submit" value="Refresh" name="refresh"/>
     <hr class="mb-4"/>
     {% for todos in todos %}
-        <div class=" container border-bottom mb-4">
+        <div class=" container-fluid border-bottom mb-4">
             <input type="checkbox" value="clicked" name="checked{{todos.pk}}" class="mr-2" />
-            <a href="{{ todos.get_absolute_url }}" style="color: black;"> {{ todos}} </a>
+            <a href="{% url 'mytodo:detailpage' todos.pk %}" style="color: black;"> {{ todos}} </a>
             <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span>
             <div style="margin-left:27px"> 
                 {% if todos.note != None %}
@@ -27,21 +26,5 @@
         </div>
     {% endfor %}
 </form>
-<div class="pagination">
-    <span class="step-links">
-        {% if todos.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ todos.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span class="current">
-            Page {{ todos.number }} of {{ todos.paginator.num_pages }}.
-        </span>
-        {% if todos.has_next %}
-            <a href="?page={{ todos.next_page_number }}">Next</a>
-            <a href="?page={{ todos.paginator.num_pages }}">Last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-
 
 {% endblock %}
