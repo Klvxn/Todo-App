@@ -9,11 +9,9 @@
 
 <form action="" method="post">
     {% csrf_token %} 
-    <input class='btn btn-success' style="font-size: 20px;" type="submit" value="Refresh" name="refresh"/>
-    <hr class="mb-4"/>
     {% for todos in todos %}
         <div class=" container-fluid border-bottom mb-4">
-            <input type="checkbox" value="clicked" class="mr-2" checked/>
+            <input type="checkbox" class="mr-2" checked/>
             <a href="{% url 'mytodo:detailpage' todos.pk %}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
             <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span>
             <div style="margin-left:27px"> 

@@ -1,10 +1,8 @@
-from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Todo
 from .forms import TodoForm, EditTodoForm
-from django.core.paginator import Paginator
 
 # Create your views here.
 def indexpage(request):
@@ -84,13 +82,6 @@ def delete_todo(request, pk):
 @login_required
 def completed_todos(request):
     todo = Todo.objects.filter(user=request.user, completed=True).order_by('-date_created')
-    if request.POST.get('refresh'):
-        for todos in todo:
-            if request.POST.get('checked'+str(todos.pk)) == 'clicked':
-                todos.completed = True
-            else:
-                todos.completed = False
-            todos.save()
     context = {'todos':todo}
     return render(request, 'mytodo/completed.html', context)
 
@@ -102,8 +93,6 @@ def uncompleted_todos(request):
         for todos in todo:
             if request.POST.get('checked'+str(todos.pk)) == 'clicked':
                 todos.completed = True
-            else:
-                todos.completed = False
             todos.save()
     todo = Todo.objects.filter(user=request.user, completed=False).order_by('-date_created')
     context = {'todos':todo}
