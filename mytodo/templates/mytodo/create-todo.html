@@ -1,4 +1,4 @@
-{% extends 'mytodo\base.html' %}
+{% extends 'mytodo/base.html' %}
 {% load bootstrap4  %}
 
 {% block page_header %}
@@ -9,6 +9,6 @@
 <form class="form-group" id="createform" action="" method="post"> 
     {% csrf_token %}
     {% bootstrap_form form  %}
-    <input class="btn btn-success" style="font-size: 25px;" type="submit" value="Create"/>
+    <input class="btn btn-success" style="font-size: 20px;" type="submit" value="Create"/>
 </form>
 {% endblock %}

@@ -1,24 +1,24 @@
-{% extends 'mytodo\base.html' %}
+{% extends 'mytodo/base.html' %}
 
 {% block page_header %}
-<h3> My To-do List </h3> 
+    <h3> My To-do List </h3> 
 {% endblock %}
 
 
 {% block content %}
     <form action="" method="post">
         {% csrf_token %} 
-        <input class='btn btn-success' style="font-size: 25px;" type="submit" value="Refresh" name="refresh"/> 
-        <p style="float:right;">  <b> You have {{todo_count}} uncompleted to-dos </b> </p>
+        <input class='btn btn-success' style="font-size: 22px;" type="submit" value="Refresh" name="refresh"/> 
+        <p style="float:right; font-size:25px;"> You have <b> {{todo_count}} </b>  Incomplete to-dos. </p>
         <hr class="mb-4">
         {% for todos in todo %}
             <div class=" border-bottom mb-4 container-fluid" style="background-color:white;" >
                 {% if todos.completed == True %} 
                     <input type="checkbox" value="clicked" name="checked{{todos.pk}}" class="mr-2 material-icons-outlined" checked /> {{todo.completed}}
-                    <a href="{{ todos.get_absolute_url }}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
+                    <a href="{% url 'mytodo:detailpage' todos.pk %}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
                 {% else %}   
                     <input type="checkbox" value="clicked" name="checked{{todos.pk}}" class="mr-2"/>
-                    <a href="{{ todos.get_absolute_url }}" style="color: black;"> {{todos}} </a>
+                    <a href="{% url 'mytodo:detailpage' todos.pk %}" style="color: black;"> {{todos}} </a>
                 {% endif %}
                 <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span> 
                 <div style="margin-left:25px">
@@ -34,22 +34,5 @@
             </div>     
         {% endfor %}
     </form>
-
-
-<div class="pagination">
-    <span class="step-links">
-        {% if todo.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ todo.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span class="current">
-            Page {{ todo.number }} of {{ todo.paginator.num_pages }}.
-        </span>
-        {% if todo.has_next %}
-            <a href="?page={{ todo.next_page_number }}">Next</a>
-            <a href="?page={{ todo.paginator.num_pages }}">Last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
 
 {% endblock %}

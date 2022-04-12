@@ -1,4 +1,4 @@
-{% extends 'mytodo\base.html' %}
+{% extends 'mytodo/base.html' %}
 
 {% block page_header %}
 <h3> Completed To-dos <span class="material-icons" style="color:limegreen;"> task_alt </span>  </h3> 
@@ -9,12 +9,10 @@
 
 <form action="" method="post">
     {% csrf_token %} 
-    <input class='btn btn-success' style="font-size: 25px;" type="submit" value="Refresh" name="refresh"/>
-    <hr class="mb-4"/>
     {% for todos in todos %}
-        <div class=" container border-bottom mb-4">
-            <input type="checkbox" value="clicked" class="mr-2" checked/>
-            <a href="{{ todos.get_absolute_url }}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
+        <div class=" container-fluid border-bottom mb-4">
+            <input type="checkbox" class="mr-2" checked/>
+            <a href="{% url 'mytodo:detailpage' todos.pk %}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
             <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span>
             <div style="margin-left:27px"> 
                 {% if todos.note != '' %}
@@ -28,21 +26,5 @@
         </div>
     {% endfor %}
 </form>
-<div class="pagination">
-    <span class="step-links">
-        {% if todos.has_previous %}
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page={{ todos.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span class="current">
-            Page {{ todos.number }} of {{ todos.paginator.num_pages }}.
-        </span>
-        {% if todos.has_next %}
-            <a href="?page={{ todos.next_page_number }}">Next</a>
-            <a href="?page={{ todos.paginator.num_pages }}">Last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-
 
 {% endblock %}
