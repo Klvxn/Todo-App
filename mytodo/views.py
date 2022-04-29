@@ -8,7 +8,7 @@ from .forms import TodoForm, EditTodoForm
 def indexpage(request):
     return render(request, 'mytodo/indexpage.html')
 
-
+@login_required
 def detailpage(request, pk):
     todo = Todo.objects.get(pk=pk)
     context = {'todo':todo}
@@ -61,7 +61,7 @@ def edit_todo(request, pk):
         else:
             form = EditTodoForm(instance=todo)
     else:
-        return HttpResponse('Where do you think you are going boss??')
+        return HttpResponse('<h1> (ERROR!) Access denied.</h1>')
     context = {'todo':todo, 'form':form}
     return render(request, 'mytodo/editpage.html', context)
 
@@ -74,7 +74,7 @@ def delete_todo(request, pk):
             todo.delete()
             return redirect('mytodo:homepage')
     else:
-        return HttpResponse('baddie')
+        return HttpResponse('<h1> (ERROR!) Request denied.</h1>')
     context = {'todo':todo}
     return render(request, 'mytodo/delete-todo.html', context)
 
