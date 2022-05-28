@@ -6,12 +6,14 @@ A small Todo web app made with Django web framework.
 <a href="python.org">Python </a>
 
 Django <br>
+
 '''
 pip install django
 '''
 
 <h3> Clone Repository </h3>
-Clone the repository <br>
+Clone the repository using <br>
+
 '''
 git clone https://github.com/Kelvxn/Todo-App.git
 '''
