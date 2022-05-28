@@ -1,23 +1,23 @@
 # Todo-App
-<h1> Introduction </h1>
+<h2> Introduction </h2>
 A small Todo web app made with Django web framework.
 
-<h1> Requirements </h1>
+<h3> Requirements </h3>
 <a href="python.org">Python </a>
 
-Django
+Django <br>
 '''
 pip install django
 '''
 
-<h1> Clone Repository </h1>
-Clone the repository
+<h3> Clone Repository </h3>
+Clone the repository <br>
 '''
 git clone https://github.com/Kelvxn/Todo-App.git
 '''
 
-<h1> Deployed at </h1>
+<h3> Deployed at </h3>
 Heroku <a href="klvn-todo.herokuapp.com"> To-do App </a>
 
-<h2> PS </h2>
+<h3> PS </h3>
 Feel free to open an issue and ask about anything.
