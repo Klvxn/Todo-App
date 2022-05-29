@@ -12,6 +12,7 @@ pip install django
 
 <h3> Clone Repository </h3>
 Clone the repository using
+
 ```
 git clone https://github.com/Kelvxn/Todo-App.git
 ```
