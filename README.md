@@ -5,15 +5,13 @@ A Todo web app made with <a href="djangoproject.com"> Django </a> web framework.
 <h3> Requirements </h3>
 <a href="python.org"> Python </a>
 
-Django <br>
-
+Django
 ```
 pip install django
 ```
 
 <h3> Clone Repository </h3>
-Clone the repository using <br>
-
+Clone the repository using
 ```
 git clone https://github.com/Kelvxn/Todo-App.git
 ```
