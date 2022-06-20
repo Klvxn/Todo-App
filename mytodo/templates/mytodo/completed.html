@@ -1,26 +1,25 @@
 {% extends 'mytodo/base.html' %}
 
 {% block page_header %}
-<h3> Completed To-dos <span class="material-icons" style="color:limegreen;"> task_alt </span>  </h3> 
+<h3> Completed To-dos <span class="material-icons" style="color:limegreen;"> task_alt </span> </h3> 
 {% endblock %}
 
 
 {% block content %}
 
-<form action="" method="post">
+<form  class="mt-4" action="" method="post">
     {% csrf_token %} 
     {% for todos in todos %}
-        <div class=" container-fluid border-bottom mb-4">
-            <input type="checkbox" class="mr-2" checked/>
-            <a href="{% url 'mytodo:detailpage' todos.pk %}"> <s style="color: rgba(0, 0, 0, 0.541);"> {{ todos}}</s> </a> <span style="color:limegreen;" class="material-icons"> task_alt </span>
-            <span style="color:rgba(126, 105, 105, 0.774); font-size: 17px;"> - {{todos.date_created|timesince}} ago </span>
-            <div style="margin-left:27px"> 
+        <div class=" container-fluid border-bottom mb-3">
+            <input type="checkbox" checked/>
+            <a href="{% url 'mytodo:detailpage' todos.pk %}"> <s style="color: rgb(60, 57, 57);"> {{ todos|capfirst }}</s> </a>
+            <div style="margin-left:2rem;"> 
                 {% if todos.note != '' %}
-                    <div style="color:rgb(207, 160, 115); font-size:17px"> Note: {{ todos.note|truncatewords:12 }} </div>
+                    <div style="color:rgb(207, 160, 115); font-size:17px">{{ todos.note|capfirst|truncatewords:12 }} </div>
                 {% endif %}
-                <div>
-                    <a class="fa fa-pencil-square-o" style="color: rgba(252, 125, 7, 0.753);" href="{% url 'mytodo:edit-todo' todos.pk %}"> </a> 
-                    <a class="material-icons" style="color:red;" href="{% url 'mytodo:delete-todo' todos.pk %}"> delete </a>
+                <div class="fonts mt-2">
+                    <a class="fa fa-pencil-square-o" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todos.pk %}"> </a> 
+                    <a style="color: tomato;" href="{% url 'mytodo:delete-todo' todos.pk %}"> <i class="bi-trash mx-2"></i></a>
                 </div>
             </div>
         </div>
