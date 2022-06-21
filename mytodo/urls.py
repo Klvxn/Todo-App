@@ -13,5 +13,5 @@ urlpatterns = [
     path("todos/<int:pk>/edit-todo/", views.edit_todo, name="edit-todo"),
     path("todos/<int:pk>/delete-todo/", views.delete_todo, name="delete-todo"),
     path("todos/completed-todos/", views.completed_todos, name="completed-todos"),
-    path("todos/incompleted-todos/", views.incompleted_todos, name="incompleted-todos"),
+    path("todos/incompleted-todos/", views.incomplete_todos, name="incompleted-todos"),
 ]

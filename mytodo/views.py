@@ -90,7 +90,7 @@ def completed_todos(request):
 
 
 @login_required
-def incompleted_todos(request):
+def incomplete_todos(request):
     todo = Todo.objects.filter(user=request.user, completed=False)
     if request.POST.get("refresh"):
         for todos in todo:
