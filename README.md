@@ -1,4 +1,7 @@
 # Todo-App
+
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 <h2> Introduction </h2>
 A Todo web app made with <a href="djangoproject.com"> Django </a> web framework.
 
