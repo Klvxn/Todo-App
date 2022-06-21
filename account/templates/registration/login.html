@@ -7,13 +7,11 @@
 
 
 {% block content %}
-<div style="font-size: x-large;">
-    <form class= "form-group" method="post" action="">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <input class="btn bg-success text-white" style="font-size: 20px;" type="submit" value="Login"/>
-    </form>
+<form class= "form-group" method="post" action="">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <p> <input class="btn bg-success text-white" type="submit" value="Log in"/> </p>
+</form>
 
-    <p> Don't have an account? <a style="color:limegreen" href="{% url 'account:register' %}">Register</a> </p>
-</div>
+<p> Don't have an account? <a href="{% url 'account:register' %}">Sign up</a> </p>
 {% endblock content %}

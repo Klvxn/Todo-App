@@ -2,15 +2,15 @@
 {% load bootstrap4 %}
 
 {% block page_header %}
-<h3> Register </h3>
+<h3> Sign Up </h3>
 {% endblock page_header %}
 
 {% block content %}
-<div style="font-size: x-large;">
-    <form method="post" action="">
-        {% csrf_token %} 
-        {% bootstrap_form form %}
-        <input class="btn btn-success text-white" style="font-size: 20px;" type="submit" value="Sign up" />
-    </form>
-</div>
+<form class="form-group" method="post" action="">
+    {% csrf_token %} 
+    {% bootstrap_form form %}
+    <p> <input class="btn btn-success text-white" type="submit" value="Sign up"/> </p>
+</form>
+<p> Already have an account? <a href="{% url 'account:login' %}"> Log in</a></p>
+
 {% endblock content %}
