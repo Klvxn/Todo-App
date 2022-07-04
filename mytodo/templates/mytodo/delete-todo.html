@@ -1,9 +1,11 @@
 {% extends 'mytodo/base.html' %}
 {% load bootstrap4 %}
 
+
 {% block page_header %}
-<h3> Delete to-do</h3>
+<h2> Delete To-do</h2>
 {% endblock %}
+
 
 {% block content %}
 <p> Do you want to delete this to-do? </p>
@@ -16,11 +18,11 @@
         <p> <b> {{ todo }} </b> </p>
     {% endif %}
     {% if todo.note != '' %}
-        <div style="color:rgb(207, 160, 115)"> Note: {{ todo.note|capfirst }} </div>
+        <div style="color:darkgrey"> Note: {{ todo.note|capfirst }} </div>
     {% endif %} 
     <p class="mt-5">
-        <input class="btn btn-danger p-1" type="submit" value="Delete"/> 
-        <a class="btn btn-outline-dark p-1 mx-3" href="{{ todo.get_absolute_url }}">Cancel</a> </p>
+        <input class="btn btn-danger px-3" type="submit" value="Delete"/> 
+        <a style="color: darkgrey;" class="btn btn-outline-secondary px-3 mx-3" href="{{ todo.get_absolute_url }}">Cancel</a> </p>
 </form>
 
 {% endblock %}

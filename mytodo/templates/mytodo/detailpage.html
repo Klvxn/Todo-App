@@ -1,25 +1,27 @@
 {% extends 'mytodo/base.html' %}
 
+
 {% block page_header %}
-<h3> To-do </h3>
+<h2> Your To-do </h2>
 {% endblock %}
 
+
 {% block content %}
-<div class="mt-2">
+<div>
     {% if todo.completed %} 
-        <p> <input type="checkbox" value="clicked" name="checked{{ todos.pk }}" checked />
+        <p> <input type="checkbox" class="m-1" name="checked{{ todos.pk }}" value="clicked" checked />
             <s style="color: rgb(0, 0, 0);"> <b> {{ todo|capfirst }} </b> </s> </p>
     {% else %}   
         <p> <b> {{ todo }} </b> </p>
     {% endif %}
     
     {% if todo.note != '' %}
-        <p style="color:rgb(207, 160, 115)"> Note: {{ todo.note|capfirst }} </p>
+        <p style="color:darkgrey"> Note: {{ todo.note|capfirst }} </p>
     {% endif %} 
 
     <p> Status: {% if todo.completed %}Completed {% else %} Incomplete {% endif %} </p>
 
-    <span style="color:rgb(126, 105, 105);"> <br> created: {{ todo.date_created|timesince }} ago </span> 
+    <span style="color:rgb(207, 152, 152);"> <br> created: {{ todo.date_created|timesince }} ago </span> 
     
     <div class="mt-5">
         <a class="btn btn-outline p-1" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todo.pk %}"> Edit</a> 

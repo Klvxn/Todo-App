@@ -1,17 +1,18 @@
 {% extends 'mytodo/base.html' %}
 
+
 {% block page_header %}
-    <h3> To-dos </h3> 
+<h2> To-dos </h2> 
 {% endblock %}
 
 
 {% block content %}
 <form action="" method="post">
     {% csrf_token %} 
-    <p> <input class="btn btn-success p-1" type="submit" value="Refresh" name="refresh"/> </p>
+    <p> <input class="btn btn-success px-3" type="submit" value="Refresh" name="refresh"/> </p>
     <div class="mb-5">
         {% if todo_count %}
-            <p> You have <b> {{todo_count}} </b>  Incomplete to-do(s). </p>
+            <p> You have <b> {{ todo_count }} </b>  Incomplete to-do(s). </p>
         {% else %}
             <p> You are doing well. You have no incomplete to-do. </p>
         {% endif %}
@@ -19,17 +20,17 @@
     {% for todos in todo %}
         <div class="border-bottom mb-4 container-fluid">
             {% if todos.completed %} 
-                <input type="checkbox" value="clicked" name="checked{{ todos.pk }}" class="mx-2" checked /> {{ todo.completed }}
+                <input type="checkbox" class="m-1" value="clicked" name="checked{{ todos.pk }}" checked/> {{ todo.completed }}
                 <a href="{{ todos.get_absolute_url }}"> <s style="color: rgb(65, 63, 63);"> {{ todos|capfirst }}</s> </a> 
             {% else %}   
-                <input type="checkbox" value="clicked" name="checked{{ todos.pk }}" class="mx-2"/>
+                <input type="checkbox" class="m-1" value="clicked" name="checked{{ todos.pk }}"/>
                 <a href="{{ todos.get_absolute_url }}" style="color: black;"> {{ todos|capfirst }} </a>
             {% endif %}
-            <div style="margin-left:2rem;">
+            <div style="margin-left:1.7rem;">
                 {% if todos.note != '' %}
-                    <div  style="color:rgb(207, 160, 115);"> {{ todos.note|capfirst|truncatewords:10 }} </div>
+                    <div class="note"> {{ todos.note|capfirst|truncatewords:12 }} </div>
                 {% endif %} 
-                <div class="fonts mt-2">
+                <div class="icons mt-2">
                     <a class="fa fa-pencil-square-o" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todos.pk %}"></a> 
                     <a style="color: tomato;" href="{% url 'mytodo:delete-todo' todos.pk %}"> <i class="bi-trash mx-2"></i></a> 
                 </div>

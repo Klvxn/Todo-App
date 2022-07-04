@@ -1,12 +1,14 @@
 {% extends 'mytodo/base.html' %}
 
+
 {% block page_header %}
-<h3> To-do List </h3>
+<h2> To-do List </h2>
 {% endblock page_header %}
+
 
 {% block content %}
 <div>
     <p> Do you have tasks you want to accomplish and would also want to keep track of those tasks?</p>
-    <a style="color:limegreen;" href="{% url 'mytodo:create-todo' %}"> &raquo Create a to-do list today.  </a>
+    <a style="color:green;" href="{% url 'mytodo:create-todo' %}"> &raquo Create a to-do list today.  </a>
 </div>
 {% endblock %}

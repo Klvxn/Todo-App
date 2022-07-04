@@ -1,16 +1,19 @@
 {% extends 'mytodo/base.html' %}
 {% load bootstrap4 %}
 
+
 {% block page_header %}
-<h3> Sign Up </h3>
+<h2> Sign Up </h2>
 {% endblock page_header %}
+
 
 {% block content %}
 <form class="form-group" method="post" action="">
     {% csrf_token %} 
     {% bootstrap_form form %}
-    <p> <input class="btn btn-success text-white" type="submit" value="Sign up"/> </p>
+    <p> <input class="btn btn-success text-white px-3" type="submit" value="Sign up"/> </p>
 </form>
-<p> Already have an account? <a href="{% url 'account:login' %}"> Log in</a></p>
+<hr>
+<p> Already have an account? <a href="{% url 'account:login' %}"> Log in </a></p>
 
 {% endblock content %}
