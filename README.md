@@ -24,8 +24,8 @@ Clone the repository using
 git clone https://github.com/Kelvxn/Todo-App.git
 ```
 
-<h3> Deployed at </h3>
-Heroku >  <a href="https://klvn-todo.herokuapp.com"> To-do App </a>
+<h3> Deployment </h3>
+Deployed on Heroku >  <a href="https://klvn-todo.herokuapp.com"> To-do App </a>
 
 <h3> PS </h3>
 Feel free to open an issue and ask about anything.
