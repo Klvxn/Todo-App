@@ -1,14 +1,16 @@
 {% extends 'mytodo/base.html' %}
 {% load bootstrap4  %}
 
+
 {% block page_header %}
-<h3> Add a to-do </h3>
+<h2> Add To-do </h2>
 {% endblock %}
+
 
 {% block content %}
 <form class="form-group" action="" method="post"> 
     {% csrf_token %}
     {% bootstrap_form form  %}
-    <input class="btn btn-success" type="submit" value="Add todo"/>
+    <input class="btn btn-success px-3" type="submit" value="Add to-do"/>
 </form>
 {% endblock %}

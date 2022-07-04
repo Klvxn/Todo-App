@@ -1,27 +1,29 @@
 {% extends 'mytodo/base.html' %}
 
+
 {% block page_header %}
-<h3> Incomplete To-dos </h3> 
+<h2> Incomplete To-dos </h2> 
 {% endblock %}
+
 
 {% block content %}
 <form action="" method="post">
     {% csrf_token %} 
-    <input class="btn btn-success p-1" type="submit" value="Refresh" name="refresh"/>
+    <input class="btn btn-success" type="submit" value="Refresh" name="refresh"/>
     <div class="mt-5">
         {% for todos in todos %}
-            <div class=" container-fluid border-bottom mb-4">
-                <input type="checkbox" value="clicked" name="checked{{todos.pk}}" class="mr-2" />
+            <div class="container-fluid border-bottom mb-4">
+                <input type="checkbox" class="m-1" value="clicked" name="checked{{todos.pk}}"/> 
                 <a href="{% url 'mytodo:detailpage' todos.pk %}" style="color: black;"> {{ todos|capfirst }} </a>
-                <div style="margin-left:2rem;"> 
+                <div style="margin-left: 1.7rem;"> 
                     {% if todos.note != None %}
-                        <div style="color:rgb(207, 160, 115); font-size:17px"> {{ todos.note|capfirst|truncatewords:12 }} </div>
+                        <div class="note"> {{ todos.note|capfirst|truncatewords:12 }} </div>
                     {% endif %}
-                    <div class="fonts mt-2">
+                    <div class="icons mt-2">
                         <a class="fa fa-pencil-square-o" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todos.pk %}"> </a> 
                         <a style="color: tomato;" href="{% url 'mytodo:delete-todo' todos.pk %}"> <i class="bi-trash mx-2"></i></a>
                     </div>
-                </div>  
+                </div>
             </div>
         {% endfor %}
     </div>
