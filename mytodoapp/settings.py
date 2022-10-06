@@ -26,7 +26,7 @@ SECRET_KEY = "safe-space"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -154,6 +154,6 @@ elif os.environ.get("DEBUG") == "FALSE":
 
 
 # # My security settings
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True

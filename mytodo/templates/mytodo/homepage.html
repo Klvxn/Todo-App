@@ -7,36 +7,64 @@
 
 
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %} 
-    <p> <input class="btn btn-success px-3" type="submit" value="Refresh" name="refresh"/> </p>
-    <div class="mb-5">
-        {% if todo_count %}
-            <p> You have <b> {{ todo_count }} </b>  Incomplete to-do(s). </p>
-        {% else %}
-            <p> You are doing well. You have no incomplete to-do. </p>
-        {% endif %}
-    </div>
-    {% for todos in todo %}
-        <div class="border-bottom mb-4 container-fluid">
-            {% if todos.completed %} 
-                <input type="checkbox" class="m-1" value="clicked" name="checked{{ todos.pk }}" checked/> {{ todo.completed }}
-                <a href="{{ todos.get_absolute_url }}"> <s style="color: rgb(65, 63, 63);"> {{ todos|capfirst }}</s> </a> 
-            {% else %}   
-                <input type="checkbox" class="m-1" value="clicked" name="checked{{ todos.pk }}"/>
-                <a href="{{ todos.get_absolute_url }}" style="color: black;"> {{ todos|capfirst }} </a>
-            {% endif %}
-            <div style="margin-left:1.7rem;">
-                {% if todos.note != '' %}
-                    <div class="note"> {{ todos.note|capfirst|truncatewords:12 }} </div>
+<div class="info mb-3">
+    {% if todo_count %}
+        <p> <b> {{ todo_count }} </b>  Incomplete to-do(s). </p>
+    {% endif %}
+</div>
+
+<div class="incomplete">
+    {% for todo in incomplete_todos %}
+        <div class="border-bottom mb-3 container-fluid">
+            <form action="" method="post">
+                {% csrf_token %} 
+                <input type="checkbox" hx-post="."class="m-1" name="{{ todo.pk }}" value="check" />
+                <a href="{{ todo.get_absolute_url }}"> {{ todo|capfirst }} </a> 
+            </form>
+
+            <div class="extra">
+                {% if todo.note != '' %}
+                <div class="info" id="note"> {{ todo.note|capfirst|truncatewords:12 }} </div>
                 {% endif %} 
                 <div class="icons mt-2">
-                    <a class="fa fa-pencil-square-o" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todos.pk %}"></a> 
-                    <a style="color: tomato;" href="{% url 'mytodo:delete-todo' todos.pk %}"> <i class="bi-trash mx-2"></i></a> 
+                    <a class="" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todo.pk %}"><i class="bi bi-pencil-square mx-2"></i></a> 
+                    <a class="text-danger" href="{% url 'mytodo:delete-todo' todo.pk %}" hx-post="{% url 'mytodo:delete-todo' todo.pk %}" hx-confirm="Delete this to-do?"> 
+                        <i class="bi-trash mx-2"></i></a> 
                 </div>
             </div>
-        </div>   
+        </div>
     {% endfor %}
-</form>
+</div>
+
+{% if completed_todos %}
+    <div class="completed">
+        <h4 class="info mx-2">Completed</h4> <br>
+        {% for todo in completed_todos %}
+            <div class="border-bottom mb-3 container-fluid">
+                <form action="" method="post">
+                    {% csrf_token %} 
+                    <input type="checkbox" hx-post="." class="m-1" name="{{ todo.pk }}" value="uncheck" checked/>
+                    <input type="hidden" name="{{ todo.pk }}" value="uncheck"/>
+                    <a href="{{ todo.get_absolute_url }}"> <s> {{ todo|capfirst }} </s></a> 
+                </form>
+                
+                <div class="extra">
+                    {% if todo.note != '' %}
+                    <div class="info" id="note"> {{ todo.note|capfirst|truncatewords:12 }} </div>
+                    {% endif %} 
+                    <div class="icons mt-2">
+                        <a class="" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todo.pk %}"><i class="bi bi-pencil-square mx-2"></i></a> 
+                        <a class="text-danger" href="{% url 'mytodo:delete-todo' todo.pk %}" hx-post="{% url 'mytodo:delete-todo' todo.pk %}" hx-confirm="Delete this to-do?">
+                            <i class="bi-trash mx-2"></i></a> 
+                    </div>
+                </div>
+            </div>   
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if not completed_todos and not incomplete_todos %}
+    <h3 class="info">You have no to-dos.</h3>
+{% endif %}
 
 {% endblock %}
