@@ -8,10 +8,8 @@ app_name = "mytodo"
 urlpatterns = [
     path("", views.indexpage, name="indexpage"),
     path("home/", views.homepage, name="homepage"),
-    path("todos/<int:pk>/", views.detailpage, name="detailpage"),
-    path("todos/create-todo/", views.create_todo, name="create-todo"),
-    path("todos/<int:pk>/edit-todo/", views.edit_todo, name="edit-todo"),
-    path("todos/<int:pk>/delete-todo/", views.delete_todo, name="delete-todo"),
-    path("todos/completed-todos/", views.completed_todos, name="completed-todos"),
-    path("todos/incompleted-todos/", views.incomplete_todos, name="incompleted-todos"),
+    path("to-dos/<int:pk>/", views.detailpage, name="detailpage"),
+    path("to-dos/add-todo/", views.create_todo, name="add-todo"),
+    path("to-dos/<int:pk>/edit-todo/", views.edit_todo, name="edit-todo"),
+    path("to-dos/<int:pk>/delete-todo/", views.delete_todo, name="delete-todo"),
 ]

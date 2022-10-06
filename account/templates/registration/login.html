@@ -11,8 +11,8 @@
 <form class= "form-group" method="post" action="">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <p> <input class="btn bg-success text-white px-3" type="submit" value="Log in"/> </p>
+    <p> <input class="btn bg-success text-white px-3" type="submit" value="Log In"/> </p>
+    <hr>
+    <p> Don't have an account? <a href="{% url 'account:register' %}">Sign Up</a> </p>
 </form>
-<hr>
-<p> Don't have an account? <a href="{% url 'account:register' %}">Sign up</a> </p>
 {% endblock content %}

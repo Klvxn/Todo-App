@@ -10,3 +10,4 @@ class TodoAdmin(admin.ModelAdmin):
     list_display = ["todo", "note", "completed", "user", "date_created"]
     list_filter = ("completed", "user")
     search_fields = ("todo", "user")
+    list_per_page = 15

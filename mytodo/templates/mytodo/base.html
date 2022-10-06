@@ -8,10 +8,7 @@
         <meta name="viewport"  content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
         <title> To-dos </title>
-        
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+             
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
@@ -20,48 +17,46 @@
         
         <!-- Base CSS -->
         <link rel="stylesheet" href="/static/css/base.css" type="text/css">
+
+        <!--HTMX-->
+        <script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
     </head>
 
-    <body> 
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'> 
        
-        <button class="menu btn btn-outline-success d-lg-none py-0 px-1" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Menu</button>
+        <button class="menu btn btn-outline-success d-lg-none py-0 px-2" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"> <i class="bi bi-list"></i></button>
   
         <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-          <div class="offcanvas-header">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
-          </div>
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+            </div>
 
-          <div class="offcanvas-body">
-            <div class="container" id="sidebar">
-                <h3> Menu </h3>
-                <a class="btn btn-outline" href="{% url 'mytodo:homepage' %}"> Home </a> <br>
-                <a class="btn btn-outline" href="{% url 'mytodo:create-todo' %}"> Add to-do </a> 
-    
-                <div class="dropdown">
-                    <a class="btn btn-outline dropdown-toggle" type="button" href="" id="dropdown" 
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Navigate to-do</a>
-                    <ul class="dropdown-menu"  aria-labelledby="dropdown">
-                        <li> <a class="dropdown-item" href="{% url 'mytodo:homepage' %}"> All to-dos </a> </li>
-                        <li> <a class="dropdown-item" href="{% url 'mytodo:completed-todos' %}"> Completed to-dos </a> </li>
-                        <li> <a class="dropdown-item" href="{% url 'mytodo:incompleted-todos' %}"> Incomplete to-dos </a> </li>
-                    </ul>
-                </div>
-    
-                <div>
-                    <br>
+            <div class="offcanvas-body">
+                <div class="container" id="sidebar">
+                    <h2> Menu </h2>
+                    <a class="btn btn-outline" href="{% url 'mytodo:homepage' %}"> Home </a> <br>
+                    <a class="btn btn-outline" href="{% url 'mytodo:add-todo' %}"> Add To-do </a>
+        
+                    <div>
+                        <br>
+                        {% if user.is_authenticated %}
+                            <p> Hello, {{ user|title }} </p>
+                            <li>  <a class="btn btn-outline" href="{% url 'account:logout' %}"> Log Out</a> </li>
+                        {% else %}
+                            <p> Hello there. </p>
+                            <li> <a class="btn btn-outline" href="{% url 'account:login' %}"> Log In</a> </li>
+                            <li> <a class="btn btn-outline" href="{% url 'account:register' %}"> Sign Up </a> </li> 
+                        {% endif %} 
+                    </div>
                     {% if user.is_authenticated %}
-                        Hello, {{user|title}}
-                        <li>  <a class="btn btn-outline" href="{% url 'account:logout' %}"> Log out</a> </li>
-                    {% else %}
-                        Hello there.
-                    <li> <a class="btn btn-outline" href="{% url 'account:login' %}"> Log in</a> </li>
-                    <li> <a class="btn btn-outline" href="{% url 'account:register' %}">Register </a> </li> 
-                    {% endif %} 
-                </div>
-            </div> 
-          </div>
+                        <div class="my-2">
+                            <a class="btn btn-outline p-1" id="delete" hx-delete="{% url 'account:delete' user.pk %}" 
+                            hx-confirm="Are you sure want to delete your account? This action cannot be undone"> Delete account</a>
+                        </div>
+                    {% endif %}
+                </div> 
+            </div>
         </div>
            
         <div id="main-content">

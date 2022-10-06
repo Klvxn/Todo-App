@@ -8,24 +8,31 @@
 
 {% block content %}
 <div>
-    {% if todo.completed %} 
-        <p> <input type="checkbox" class="m-1" name="checked{{ todos.pk }}" value="clicked" checked />
-            <s style="color: rgb(0, 0, 0);"> <b> {{ todo|capfirst }} </b> </s> </p>
-    {% else %}   
-        <p> <b> {{ todo }} </b> </p>
-    {% endif %}
+    <div class="to-do">
+        {% if todo.completed %} 
+            <form action="" method="post">
+                {% csrf_token %} 
+                <input type="checkbox" hx-post="." class="m-1" name="{{ todo.pk }}" value="uncheck" checked/>
+                <a> <s> {{ todo|capfirst }} </s></a> 
+            </form> <br>
+        {% else %}   
+            <p> <input type="checkbox" class="m-1" hx-post="." name="{{ todo.pk }}" value="check" /> <a> {{ todo|capfirst }} </a> </p> <br>
+        {% endif %}
+    </div>
     
     {% if todo.note != '' %}
-        <p style="color:darkgrey"> Note: {{ todo.note|capfirst }} </p>
+        <div class="info" id="note">
+            <p> Note: {{ todo.note|capfirst }} </p>
+        </div>
     {% endif %} 
 
-    <p> Status: {% if todo.completed %}Completed {% else %} Incomplete {% endif %} </p>
-
-    <span style="color:rgb(207, 152, 152);"> <br> created: {{ todo.date_created|timesince }} ago </span> 
+    <span class="info" id="created"> Created: {{ todo.date_created|timesince }} ago </span> 
     
-    <div class="mt-5">
-        <a class="btn btn-outline p-1" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todo.pk %}"> Edit</a> 
-        <a class="btn btn-outline p-1 mx-4" style="color:tomato ;" href="{% url 'mytodo:delete-todo' todo.pk %}">Delete </a>
+    <div class="options">
+        <a class="edit p-2 mx-3" href="{% url 'mytodo:edit-todo' todo.pk %}">
+            <i class="bi bi-pencil-square mx-2"></i></a>
+        <a class="delete p-2 mx-3" href="{% url 'mytodo:delete-todo' todo.pk %}" hx-delete="{% url 'mytodo:delete-todo' todo.pk %}" 
+        hx-confirm="Delete this to-do?"> <i class="bi-trash mx-2"></i> </a>
     </div>
 </div>
 {% endblock %}
