@@ -20,9 +20,9 @@ def homepage(request):
     completed_todos = todos.filter(completed=True)
     incomplete_todos = todos.filter(completed=False)
 
-    if request.method == 'POST':
-        data =  request.POST.copy()
-        data.pop('csrfmiddlewaretoken')
+    if request.method == "POST":
+        data = request.POST.copy()
+        data.pop("csrfmiddlewaretoken")
         for todo_id, value in data.items():
             if value == "check":
                 todos.filter(id=todo_id).update(completed=True)
@@ -46,8 +46,8 @@ def homepage(request):
 @login_required
 def detailpage(request, pk):
     todo = get_object_or_404(Todo, user=request.user, pk=pk)
-    if request.method == 'POST':
-        data =  request.POST.copy()
+    if request.method == "POST":
+        data = request.POST.copy()
         for value in data.values():
             if value == "check":
                 todo.completed = True
@@ -66,14 +66,9 @@ def create_todo(request):
         form = TodoForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = request.user
-            new_todo = Todo(
-                todo=data["todo"],
-                note=data["note"],
-                completed=False,
-                user=user
+            Todo.objects.create(
+                todo=data["todo"], note=data["note"], completed=False, user=request.user
             )
-            new_todo.save()
             return HtmxRedirect(reverse("mytodo:homepage"), 201)
 
     form = TodoForm()
