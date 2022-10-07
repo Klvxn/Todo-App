@@ -2,12 +2,12 @@
 
 
 {% block page_header %}
-<h2> Your To-do </h2>
+<h2> To-do </h2>
 {% endblock %}
 
 
 {% block content %}
-<div>
+<div class="mx-2">
     <div class="to-do">
         {% if todo.completed %} 
             <form action="" method="post">
@@ -32,7 +32,7 @@
         <a class="edit p-2 mx-3" href="{% url 'mytodo:edit-todo' todo.pk %}">
             <i class="bi bi-pencil-square mx-2"></i></a>
         <a class="delete p-2 mx-3" href="{% url 'mytodo:delete-todo' todo.pk %}" hx-delete="{% url 'mytodo:delete-todo' todo.pk %}" 
-        hx-confirm="Delete this to-do?"> <i class="bi-trash mx-2"></i> </a>
+            hx-confirm="Delete this to-do?"> <i class="bi-trash mx-2"></i> </a>
     </div>
 </div>
 {% endblock %}

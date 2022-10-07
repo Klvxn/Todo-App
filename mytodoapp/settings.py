@@ -142,18 +142,8 @@ LOGIN_URL = "account:login"
 LOGIN_REDIRECT_URL = "mytodo:homepage"
 LOGOUT_REDIRECT_URL = "mytodo:indexpage"
 
-# Heroku settings.
-import django_heroku, os
-
-django_heroku.settings(locals())
-
-if os.environ.get("DEBUG") == "TRUE":
-    DEBUG = True
-elif os.environ.get("DEBUG") == "FALSE":
-    DEBUG = False
-
 
 # My security settings
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True

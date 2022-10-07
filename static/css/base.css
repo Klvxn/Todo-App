@@ -20,6 +20,30 @@ h2 {
     font-family: 'Abril Fatface', cursive;
 }
 
+input[type="checkbox"] {
+    transform:scale(1.5);
+    margin-right: 1rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+#note {
+    color: darkgray;
+    font-size: 1.4rem;
+}
+
+#delete {
+    color: var(--my-red);
+    text-align: center;
+    margin-top: 10rem;
+}
+
 @media (max-width: 1023px) {
     
     h2 {
@@ -42,6 +66,10 @@ h2 {
         font-size: 1rem;
         padding: 1rem;
         color: black;
+    }
+
+    input[type="checkbox"] {
+        transform:scale(1.25);
     }
 
     #main-content {
@@ -94,14 +122,6 @@ h2 {
         font-size: 1.5rem;
     }
 
-    #note {
-        font-size: 1.3rem;
-    }
-
-    #delete {
-        text-align: center;
-        margin-top: 10rem;
-    }
 }   
 
 .offcanvas-body {
@@ -109,7 +129,7 @@ h2 {
     font-weight: bold;
 }
 
-.form-group  {
+.form-group {
     margin-bottom: 2rem;
     font-family: 'Duru Sans', sans-serif;
 }
@@ -126,17 +146,8 @@ h2 {
     font-size: 1.3rem;
 }
 
-input[type="checkbox"] {
-    transform:scale(1.5);
-    margin-right: 1rem;
-}
-
 div.container-fluid a:hover, #link:hover {
     text-decoration: underline;
-}
-
-a {
-    text-decoration: none;
 }
 
 .offcanvas-body a.btn {
@@ -146,21 +157,11 @@ a {
 
 .offcanvas-body a.btn:hover {
     background-color: var(--my-green);
-    color: rgb(212, 211, 208);
-    
-}
-
-ul {
-    list-style-type: none;
+    color: rgb(212, 211, 208);   
 }
 
 .info {
     font-family: 'Times New Roman', Times, serif;
-}
-
-#note {
-    color: darkgray;
-    
 }
 
 #created {
@@ -178,10 +179,6 @@ ul {
     color: darkgray;
     font-weight: lighter;
     font-family: 'Stardos Stencil', cursive;
-}
-
-#delete {
-    color: var(--my-red);
 }
 
 .delete {

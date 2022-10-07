@@ -24,7 +24,7 @@ def homepage(request):
             else:
                 todos.filter(id=todo_id).update(completed=False)
             response = HttpResponse()
-            response['HX-Refresh'] = 'true'
+            response['HX-Location'] = '/home/'
             return response
 
     completed_todos = todos.filter(completed=True)
@@ -50,7 +50,7 @@ def detailpage(request, pk):
                 todo.completed = False
             todo.save()
             response = HttpResponse()
-            response['HX-Refresh'] = 'true'
+            response['HX-Location'] = todo.get_absolute_url()
             return response
 
     context = {"todo": todo}
@@ -72,7 +72,7 @@ def create_todo(request):
             )
             new_todo.save()
             response = HttpResponse()
-            response['HX-Redirect'] = '/home/'
+            response['HX-Location'] = '/home/'
             return response
 
     form = TodoForm()
@@ -91,14 +91,14 @@ def edit_todo(request, pk):
                 updated_todo = form.save(commit=False)
                 updated_todo.save()
                 response = HttpResponse()
-                response['HX-Redirect'] = todo.get_absolute_url()
+                response['HX-Location'] = todo.get_absolute_url()
                 return redirect(updated_todo)
 
         form = EditTodoForm(instance=todo)
         context = {"todo": todo, "form": form}
         return render(request, "mytodo/editpage.html", context)
-    else:
-        return HttpResponseForbidden("<h1> (ERROR!) Access denied.</h1>")
+
+    return HttpResponseForbidden("<h1> (ERROR!) Access denied.</h1>")
 
 
 @login_required
@@ -108,7 +108,7 @@ def delete_todo(request, pk):
     if todo.user == request.user:
         todo.delete()
         response = HttpResponse()
-        response['HX-Redirect'] = '/home/'
+        response['HX-Location'] = '/home/'
         return response
 
     return HttpResponseForbidden("<h1> (ERROR!) Request denied.</h1>")
