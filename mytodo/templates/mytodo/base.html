@@ -40,7 +40,7 @@
             <div class="offcanvas-body">
                 <div class="container" id="sidebar">
                     <h2> Menu </h2>
-                    <a class="btn btn-outline" href="{% url 'mytodo:homepage' %}"> Home </a> <br>
+                    <a class="btn btn-outline" href="{% url 'mytodo:home' %}"> Home </a> <br>
                     <a class="btn btn-outline" href="{% url 'mytodo:add-todo' %}"> Add To-do </a>
         
                     <div>
@@ -57,7 +57,7 @@
                     {% if user.is_authenticated %}
                         <div class="my-2">
                             <a class="btn btn-outline p-1" id="delete" hx-delete="{% url 'account:delete' user.pk %}" 
-                            hx-confirm="Are you sure you want to delete your account? This action cannot be undone"> Delete account</a>
+                            hx-confirm="This action will delete your account and all your to-dos."> Delete account</a>
                         </div>
                     {% endif %}
                 </div> 

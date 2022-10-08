@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -138,9 +141,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # My settings
-LOGIN_URL = "account:login"
-LOGIN_REDIRECT_URL = "mytodo:homepage"
-LOGOUT_REDIRECT_URL = "mytodo:indexpage"
+LOGIN_URL = reverse_lazy("account:login")
+LOGIN_REDIRECT_URL = reverse_lazy("mytodo:home")
+LOGOUT_REDIRECT_URL = "/"
 
 
 # My security settings

@@ -6,7 +6,7 @@ from . import views
 app_name = "account"
 
 urlpatterns = [
-    path("", include("django.contrib.auth.urls")),
-    path("sign-up/", views.register, name="register"),
-    path('delete-account/<int:pk>/', views.delete_todo, name="delete")
+    path("auth/", include("django.contrib.auth.urls")),
+    path("sign-up/", views.signup, name="register"),
+    path('delete/<int:pk>/', views.delete_todo, name="delete")
 ]

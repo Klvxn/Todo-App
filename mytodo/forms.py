@@ -21,6 +21,7 @@ class EditTodoForm(forms.ModelForm):
 
     note = forms.CharField(
         label="Note",
+        required=False,
         widget=forms.Textarea(attrs={"placeholder": "A short note about the to-do"}),
         empty_value="",
     )
