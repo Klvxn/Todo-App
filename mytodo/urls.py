@@ -6,7 +6,7 @@ from . import views
 app_name = "mytodo"
 
 urlpatterns = [
-    path("base/", views.index, name="indexpage"),
+    path("", views.index, name="indexpage"),
     path("home/", views.home, name="home"),
     path("to-dos/<int:pk>/", views.todo_detail, name="todo-detail"),
     path("to-dos/add/", views.add_todo, name="add-todo"),
