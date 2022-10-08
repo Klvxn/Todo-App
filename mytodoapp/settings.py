@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # My settings
 LOGIN_URL = reverse_lazy("account:login")
 LOGIN_REDIRECT_URL = reverse_lazy("mytodo:home")
-LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/base/"
 
 
 # My security settings
