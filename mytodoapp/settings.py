@@ -26,7 +26,7 @@ SECRET_KEY = "safe-space"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".railway.app"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
