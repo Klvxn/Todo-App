@@ -26,7 +26,7 @@ git clone https://github.com/Klvxn/Todo-App.git
 ```
 
 <h3> Deployment </h3>
-The app is deployed on <a href="https://railway.app">Railway</a>:  <a href="https://todo-app.up.railway.app"> To-do App </a>
+The app is deployed on <a href="https://railway.app">Railway</a>:  <a href="https://todo-list.up.railway.app"> To-do App </a>
 
 <h3> PS </h3>
 Feel free to open an issue and ask about anything.
