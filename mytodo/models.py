@@ -22,4 +22,4 @@ class Todo(models.Model):
         return f"{self.todo}"
 
     def get_absolute_url(self):
-        return reverse("mytodo:detailpage", args=[self.pk])
+        return reverse("mytodo:todo-detail", args=[self.pk])

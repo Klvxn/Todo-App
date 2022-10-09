@@ -1,83 +1,78 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 from .forms import EditTodoForm, TodoForm
+from .helpers import HtmxRedirect
 from .models import Todo
 
 
 # Create your views here.
-def indexpage(request):
+def index(request):
     return render(request, "mytodo/indexpage.html")
 
 
 @login_required
-def homepage(request):
+def home(request):
     todos = Todo.objects.filter(user=request.user)
-    if request.method == 'POST':
-        data =  request.POST.copy()
-        data.pop('csrfmiddlewaretoken')
+    completed_todos = todos.filter(completed=True)
+    incomplete_todos = todos.filter(completed=False)
+
+    if request.method == "POST":
+        data = request.POST.copy()
+        data.pop("csrfmiddlewaretoken")
         for todo_id, value in data.items():
             if value == "check":
                 todos.filter(id=todo_id).update(completed=True)
             else:
                 todos.filter(id=todo_id).update(completed=False)
-            response = HttpResponse()
-            response['HX-Refresh'] = 'true'
-            return response
+            return HtmxRedirect(reverse("mytodo:home"))
 
-    completed_todos = todos.filter(completed=True)
-    incomplete_todos = todos.filter(completed=False)
+    elif request.method == "DELETE":
+        completed_todos.delete()
+        return HtmxRedirect(reverse("mytodo:home"), 204)
+
     todo_count = incomplete_todos.count()
     context = {
         "completed_todos": completed_todos,
         "incomplete_todos": incomplete_todos,
         "todo_count": todo_count
     }
-    return render(request, "mytodo/homepage.html", context)
+    return render(request, "mytodo/home.html", context)
 
 
 @login_required
-def detailpage(request, pk):
+def todo_detail(request, pk):
     todo = get_object_or_404(Todo, user=request.user, pk=pk)
-    if request.method == 'POST':
-        data =  request.POST.copy()
+    if request.method == "POST":
+        data = request.POST.copy()
         for value in data.values():
             if value == "check":
                 todo.completed = True
             else:
                 todo.completed = False
             todo.save()
-            response = HttpResponse()
-            response['HX-Refresh'] = 'true'
-            return response
+            return HtmxRedirect(todo.get_absolute_url())
 
     context = {"todo": todo}
-    return render(request, "mytodo/detailpage.html", context)
+    return render(request, "mytodo/todo_detail.html", context)
 
 
 @login_required
-def create_todo(request):
+def add_todo(request):
     if request.method == "POST":
         form = TodoForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = request.user
-            new_todo = Todo(
-                todo=data["todo"],
-                note=data["note"],
-                completed=False,
-                user=user
-            )
-            new_todo.save()
-            response = HttpResponse()
-            response['HX-Redirect'] = '/home/'
-            return response
+            Todo.objects.create(todo=data["todo"], note=data["note"], user=request.user)
+            return HtmxRedirect(reverse("mytodo:home"), 201)
 
-    form = TodoForm()
+    else:
+        form = TodoForm()
     context = {"form": form}
-    return render(request, "mytodo/add-todo.html", context)
+    return render(request, "mytodo/add_todo.html", context)
 
 
 @login_required
@@ -90,15 +85,14 @@ def edit_todo(request, pk):
             if form.is_valid():
                 updated_todo = form.save(commit=False)
                 updated_todo.save()
-                response = HttpResponse()
-                response['HX-Redirect'] = todo.get_absolute_url()
-                return redirect(updated_todo)
+                return HtmxRedirect(todo.get_absolute_url())
 
-        form = EditTodoForm(instance=todo)
+        else:
+            form = EditTodoForm(instance=todo)
         context = {"todo": todo, "form": form}
-        return render(request, "mytodo/editpage.html", context)
-    else:
-        return HttpResponseForbidden("<h1> (ERROR!) Access denied.</h1>")
+        return render(request, "mytodo/edit_todo.html", context)
+
+    return HttpResponseForbidden("<h1> (ERROR!) Access denied.</h1>")
 
 
 @login_required
@@ -107,8 +101,6 @@ def delete_todo(request, pk):
     todo = get_object_or_404(Todo, user=request.user, pk=pk)
     if todo.user == request.user:
         todo.delete()
-        response = HttpResponse()
-        response['HX-Redirect'] = '/home/'
-        return response
+        return HtmxRedirect(reverse("mytodo:home"), 204)
 
     return HttpResponseForbidden("<h1> (ERROR!) Request denied.</h1>")
