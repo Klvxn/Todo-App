@@ -9,7 +9,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 RUN ls -a
-RUN tree
 RUN python manage.py makemigrations mytodo
 RUN python manage.py migrate
 
