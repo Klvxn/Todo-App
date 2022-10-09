@@ -1,7 +1,7 @@
 # Todo-App
 
 
-<a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" border="0" alt="Made with Django." title="Made with Django."/></a>
+
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -18,15 +18,15 @@ Django
 pip install django
 ```
 
-<h3> Clone Repository </h3>
+<h3> Cloning the Repository </h3>
 Clone the repository using
 
 ```
-git clone https://github.com/Kelvxn/Todo-App.git
+git clone https://github.com/Klvxn/Todo-App.git
 ```
 
 <h3> Deployment </h3>
-Deployed on Heroku >  <a href="https://klvn-todo.herokuapp.com"> To-do App </a>
+The app is deployed on <a href="https://railway.app">Railway</a>:  <a href="https://todo-app.up.railway.app"> To-do App </a>
 
 <h3> PS </h3>
 Feel free to open an issue and ask about anything.
