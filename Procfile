@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn mytodoapp.wsgi
+ web: python manage.py migrate && gunicorn mytodoapp.wsgi --log-file -
