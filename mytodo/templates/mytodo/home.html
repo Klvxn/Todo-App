@@ -29,7 +29,7 @@
                 <div class="icons mt-2">
                     <a class="" style="color: rgb(252, 125, 7);" href="{% url 'mytodo:edit-todo' todo.pk %}">
                         <i class="bi bi-pencil-square mx-2"></i></a> 
-                    <a class="text-danger" href="{% url 'mytodo:delete-todo' todo.pk %}" hx-post="{% url 'mytodo:delete-todo' todo.pk %}" 
+                    <a class="text-danger" href="{% url 'mytodo:delete-todo' todo.pk %}" hx-delete="{% url 'mytodo:delete-todo' todo.pk %}"
                         hx-confirm="Delete this to-do?"> <i class="bi-trash mx-2"></i></a> 
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
 {% if completed_todos %}
     <div class="completed">
-        <h4 class="info mx-2">Completed <span style="float: right;" class="btn btn-outline-danger p-1" hx-delete="." hx-confirm="Delete completed to-dos?">Delete all </span></h4> <br>
+        <h4 class="info mx-2">Completed <span style="float: right;" id="del-x" class="btn btn-outline-danger " hx-delete="." hx-confirm="Delete completed to-dos?">Delete all </span></h4> <br>
         {% for todo in completed_todos %}
             <div class="border-bottom mb-3 container-fluid">
                 <form action="" method="post">
