@@ -4,8 +4,9 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
+from django_htmx.http import HttpResponseLocation
+
 from .forms import EditTodoForm, TodoForm
-from .helpers import HtmxRedirect
 from .models import Todo
 
 
@@ -28,11 +29,11 @@ def home(request):
                 todos.filter(id=todo_id).update(completed=True)
             else:
                 todos.filter(id=todo_id).update(completed=False)
-            return HtmxRedirect(reverse("mytodo:home"))
+            return HttpResponseLocation(reverse("mytodo:home"))
 
     elif request.method == "DELETE":
         completed_todos.delete()
-        return HtmxRedirect(reverse("mytodo:home"), 204)
+        return HttpResponseLocation(reverse("mytodo:home"))
 
     todo_count = incomplete_todos.count()
     context = {
@@ -54,7 +55,7 @@ def todo_detail(request, pk):
             else:
                 todo.completed = False
             todo.save()
-            return HtmxRedirect(todo.get_absolute_url())
+            return HttpResponseLocation(todo.get_absolute_url())
 
     context = {"todo": todo}
     return render(request, "mytodo/todo_detail.html", context)
@@ -67,7 +68,7 @@ def add_todo(request):
         if form.is_valid():
             data = form.cleaned_data
             Todo.objects.create(todo=data["todo"], note=data["note"], user=request.user)
-            return HtmxRedirect(reverse("mytodo:home"), 201)
+            return HttpResponseLocation("/home/")
 
     else:
         form = TodoForm()
@@ -85,7 +86,7 @@ def edit_todo(request, pk):
             if form.is_valid():
                 updated_todo = form.save(commit=False)
                 updated_todo.save()
-                return HtmxRedirect(todo.get_absolute_url())
+                return HttpResponseLocation(todo.get_absolute_url())
 
         else:
             form = EditTodoForm(instance=todo)
@@ -101,6 +102,6 @@ def delete_todo(request, pk):
     todo = get_object_or_404(Todo, user=request.user, pk=pk)
     if todo.user == request.user:
         todo.delete()
-        return HtmxRedirect(reverse("mytodo:home"), 204)
+        return HttpResponseLocation(reverse("mytodo:home"))
 
     return HttpResponseForbidden("<h1> (ERROR!) Request denied.</h1>")

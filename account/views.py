@@ -4,7 +4,7 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
-from mytodo.helpers import HtmxRedirect
+from django_htmx.http import HttpResponseLocation
 
 from .forms import RegisterUser
 
@@ -32,6 +32,6 @@ def delete_todo(request, pk):
     if user == request.user:
         user.delete()
         logout(request)
-        return HtmxRedirect('/')
+        return HttpResponseLocation('/')
 
     return HttpResponseForbidden("<h1> (ERROR!) Request denied.</h1>")
